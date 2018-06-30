@@ -9,11 +9,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@NamedQuery(name = "returnAll", query = "SELECT customer FROM Invoice AS customer ORDER BY customer.client")
 public class Invoice {
 	@Id
 	@GeneratedValue
@@ -74,8 +76,7 @@ public class Invoice {
 	}
 
 	public BigDecimal getTotal() {
-		BigDecimal total = new BigDecimal("1115.37"); // code here
-		return total;
+		return getSubTotal().add(getVat()).setScale(2, RoundingMode.HALF_UP);
 	}
 
 }

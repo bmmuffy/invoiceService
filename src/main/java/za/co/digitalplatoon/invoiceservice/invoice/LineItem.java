@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class LineItem {
@@ -14,6 +17,10 @@ public class LineItem {
 	private Long quantity;
 	private String description;
 	private BigDecimal unitPrice;
+
+	@ManyToOne
+	@JsonBackReference
+	private Invoice invoice;
 
 	public Long getId() {
 		return this.id;
@@ -48,7 +55,7 @@ public class LineItem {
 	}
 
 	public BigDecimal getLineItemTotal() {
-		return new BigDecimal("32.2345"); // code here
+		return unitPrice.multiply(new BigDecimal(quantity));
 	}
 
 }

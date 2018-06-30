@@ -14,41 +14,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import za.co.digitalplatoon.invoiceservice.invoice.api.InvoiceService;
+import za.co.digitalplatoon.invoiceservice.invoice.api.Orchestration;
 
 @RestController
 public class InvoiceController {
 	@Autowired
-	private InvoiceService invoiceService;
+	private Orchestration orch;
+	private Invoice response;
 	private static final Logger logger = LoggerFactory.getLogger(InvoiceController.class);
 
 	@ResponseBody
 	@RequestMapping(value = "/invoices", method = POST, produces = "application/json")
 	public Invoice addInvoice(@RequestBody Invoice invoice) {
 		try {
-			invoiceService.createInvoice(invoice);
+			response = orch.createInvoice(invoice);
 		} catch (Exception e) {
 			logger.error("Error occured while trying to process the request", e);
 			return null;
 		}
-
-		return null;
-
+		return response;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/invoices", method = GET, produces = "application/json")
 	public List<Invoice> viewAllInvoices() {
-		return null;
+		return orch.viewAllInvoices();
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/invoices/{invoiceId}", method = GET, produces = "application/json")
 	public Invoice viewInvoice(@PathVariable(value = "invoiceId") Long invoiceId) { // no other way i could pass it
-		Invoice response;
 
 		try {
-			response = invoiceService.viewInvoiceById(invoiceId);
+			response = orch.viewInvoiceById(invoiceId);
 		} catch (Exception e) {
 			logger.error("Error occured while trying to process the request", e);
 			return null;
