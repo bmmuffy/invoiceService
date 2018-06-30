@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.nio.charset.Charset;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +40,6 @@ public class InvoiceApplicationTests {
 				.andExpect(status().isOk());
 
 	}
-
-	@Ignore
 
 	@Test
 	public void shouldNotFindTheInvoice() throws Exception {

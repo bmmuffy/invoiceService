@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import za.co.digitalplatoon.invoiceservice.invoice.api.CustomException;
 import za.co.digitalplatoon.invoiceservice.invoice.api.Orchestration;
 
 @RestController
@@ -49,7 +50,7 @@ public class InvoiceController {
 			response = orch.viewInvoiceById(invoiceId);
 		} catch (Exception e) {
 			logger.error("Error occured while trying to process the request", e);
-			return null;
+			throw new CustomException("The invoice with this Id: " + invoiceId + " Is not Found ");
 		}
 
 		return response;
