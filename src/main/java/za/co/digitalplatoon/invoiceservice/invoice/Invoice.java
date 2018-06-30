@@ -2,6 +2,7 @@ package za.co.digitalplatoon.invoiceservice.invoice;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Invoice {
 	private Long id;
 	private String client;
 	private Long vatRate;
-	private Date invoiceDate;
+	private Date invoiceDate = Calendar.getInstance().getTime();
 
 	public Long getId() {
 		return this.id;

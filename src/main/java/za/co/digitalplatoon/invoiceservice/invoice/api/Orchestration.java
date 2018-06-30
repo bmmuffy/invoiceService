@@ -18,11 +18,9 @@ public class Orchestration {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	// private SecureRandom random = new SecureRandom();
 	@Transactional
 	public Invoice createInvoice(Invoice invoice) {
-		// Long randomId = new BigInteger(130, random).longValue();
-		// invoice.setId(randomId);
+
 		entityManager.persist(invoice);
 		entityManager.flush();
 		return invoice;
